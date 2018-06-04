@@ -2,7 +2,7 @@
 只是一些練手感的小玩具
 ## 簡介
 > maxjav&javpop
->>學爬蟲的動機，基本的網址獲取已經達到，剩下導入cookies自動下載未完成
+>> 學爬蟲的動機，基本的網址獲取已經達到，剩下導入cookies自動下載未完成
 > nyaa_GetMagnet
 >> 磁力連結爬蟲，搭配AriaNg使用
 > JAVHD-DL
