@@ -1,7 +1,7 @@
 import requests,re,threading,os,time,random
-cert='YXhkMmVnY2dhdHxhbnhma2h3d2Ni'
+cert='' #填入cert
 quality=1080
-time_sleep=random.randint(10,20)
+time_sleep=random.randint(10,15)
 flag = 0
 def logNprint(text):
     print(text)
@@ -18,7 +18,7 @@ def change_unit(size):
     return str(round(temp,2))+size_List[n]
 
 def get_proxy():
-    return requests.get("https://ip.gd4.us/get/").text
+    return requests.get("http://123.207.35.36:5010/get/").text
 class spider:
     def __init__(self,sp):
         self.sp=sp
@@ -90,14 +90,14 @@ def run():
     proxy = get_proxy()
     print('Proxy：'+proxy)
     proxies={"http": "http://{}".format(proxy)}
-    flag=5
+    flag=1
     s=spider(quality)
     while True:
         try:
             page=s.page(flag)
             info=s.find_info(page,proxies)
-            if flag ==5:
-                info = info[60:]
+            if flag ==1:
+                info = info[:]
             for i in info:
                 reqget=s.req(proxies)
                 mp4_dict=s.find_mp4(i[0],reqget,proxies)
