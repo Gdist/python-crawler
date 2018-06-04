@@ -1,5 +1,6 @@
 # Python-crawler
-只是一些練手感的小玩具
+只是一些練手用的小玩具
+
 ## 簡介
 * maxjav&javpop
 
@@ -19,6 +20,7 @@
 * maxjav&javpop
 
 將keyword修改為想要搜尋的關鍵字後，直接執行即可
+
 若要更複雜的功能，參考9~20行的說明並更改對應參數(原想設計成互動式介面，但使用上反而造成麻煩XD)
 
 * nyaa_GetMagnet
@@ -43,3 +45,19 @@
 操作方法為更改run()下的flag變數，以及info的串列切割長度
 
 (自動續傳有空會實現，目前想法是將以下載的檔案存成log，並比對紀錄)
+
+## 待完善
+
+* maxjav&javpop
+
+導入cookies並實現自動下載，或使用PyLoad整合AllDebrid下載(待研究)
+
+* nyaa_GetMagnet
+
+暫無
+
+* JAVHD-DL
+
+將下載紀錄存成log(實現)，並調用這個紀錄，透過實現自動續傳(未實現)
+
+修正隨機暫停秒數
