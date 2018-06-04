@@ -16,9 +16,9 @@ def get_magnet(url):
 		#print(magnet)
 		List.append([title,magnet])
 
-keyword = "MXGS-"
+keyword = "" #修改關鍵字
 page = 1
-num = 14
+num = 10 #修改終止頁數
 url = "https://sukebei.nyaa.si/?f=0&c=2_2&q="+ keyword + "&p=" + str(page)
 List = []
 
