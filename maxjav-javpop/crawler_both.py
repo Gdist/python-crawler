@@ -19,7 +19,7 @@ site = site if site.lower() in ["1","javpop","2","maxjav","3","both"] else "1"
 print_check = input("是否在執行時印出執行進度? (Y/N): ") or "N"
 export_check = input("匯出格式? (1=CSV/2=TXT): ") or "1"
 '''
-keyword = "277DCV"
+keyword = "words" #修改關鍵字
 page_check = "N"
 if page_check == "Y":
 	begin_page = 1
