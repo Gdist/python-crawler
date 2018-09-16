@@ -35,11 +35,18 @@ def get_magnet(url):
 		x = td[2].find_all("a")
 		magnet = x[0].get("href") if "magnet" in x[0].get("href") else x[1].get("href")
 		#print(magnet)
-		time.sleep(3) #暫停
 		api(magnet)
 		if "success" in apijson.keys():
 			checklist(viewid)
 			logNprint("Success : " +viewid)
+		elif "error" in apijson.keys():
+			if apijson["error"] == "You have more than 100 pending download requests. Please wait until some of your requests are finished." :
+				logNprint("*Error  : " + "more than 100 pending download requests")
+				exit()
+			else:
+				print(apijson)
+		else:
+			print(apijson)
 
 
 def	api(apilink):
