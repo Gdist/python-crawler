@@ -28,8 +28,9 @@ def get_magnet(url):
 		elif seeders < seednum :
 			logNprint("*Error  : "+viewid+" has too few seeders (<"+str(seednum)+")")
 			continue
-		'''elif (begin_date - date2 > timedelta(seconds= 0) ) :
+		'''elif (begin_date - date2 > timedelta(seconds= 0) ) and keyword == "FHD PACK":
 			logNprint("*Error  : "+viewid+" Time is too far")
+			checklist(viewid)
 			continue'''
 
 		x = td[2].find_all("a")
@@ -49,6 +50,7 @@ def get_magnet(url):
 			print(apijson)
 
 
+
 def	api(apilink):
 	global apijson
 	apiurl = "https://offcloud.com/api/remote/download?apikey=" + apikey + "&url=" + apilink
@@ -64,9 +66,9 @@ def checklist(text):
 	with open("checklist.log","a", encoding = 'utf8') as data:
 		data.write(str(text)+"\n")
 
-num = 1 #爬行頁數
+num = 3 #爬行頁數
 seednum = 5 #最低需求上傳種子數
-apikey = "" #填寫OffCloud API
+apikey = "OrJSPQ5HaUoxI43kjk4YNzm0sWE6iEJA" #填寫OffCloud API
 '''begin = "2018/09/16 00" #早於此日期的將不會被下載
 begin_date = datetime.strptime(begin, '%Y/%m/%d %H')'''
 
