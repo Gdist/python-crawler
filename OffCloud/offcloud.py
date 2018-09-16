@@ -70,12 +70,12 @@ with open("keyword.txt" , "r") as keydata: #ID紀錄
 
 localtime = time.asctime( time.localtime(time.time()))
 logNprint("\nBeginTime: "+localtime)
+
 for i in KeyList:
 	keyword = i
+	logNprint("\nKeyWord : "+keyword+"\n")
 	for j in range(num):
-		logNprint("KeyWord : "+keyword+"\n")
 		page = j+1
 		url = "https://sukebei.nyaa.si/?f=0&c=0_0&q="+ keyword + "&p=" + str(page)
 		#url = "https://sukebei.nyaa.si/?f=0&c=0_0&q="+ keyword + "&s=seeders&o=desc" + "&p=" + str(page)
 		get_magnet(url)
-		break
