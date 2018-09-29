@@ -3,7 +3,7 @@ import os , requests , urllib , time
 from bs4 import BeautifulSoup
 
 key = input("請輸入番號名稱 : ")
-#key = "ABP"
+#key = "IPX"
 
 def logNprint(text):
 	os.chdir(mypath)
@@ -34,7 +34,7 @@ def GetCode(filename):
 
 	return code
 
-def CoverDL(code):
+def CoverDL(code,dlornot):
 	global TitleList , dirpath
 	url = "https://www.javbus.com/"+code
 	response = requests.get(url)
@@ -73,27 +73,29 @@ def CoverDL(code):
 			os.mkdir(mypath+"\\@Sorted\\"+code)
 			dirpath = mypath+"\\@Sorted\\"+code
 	os.chdir(dirpath)
-	try:
-		with open(filename, "wb") as imgdata:
-			imgdata.write(r.content)
-		print("CoverDL : "+title)
-		return True
-	except:
-		with open(code+".jpg", "wb") as imgdata:
-			imgdata.write(r.content)
-		print("CoverDL : "+title)
-		return True
+	if dlornot:
+		try:
+			with open(filename, "wb") as imgdata:
+				imgdata.write(r.content)
+			print("CoverDL : "+title)
+			return True
+		except:
+			with open(code+".jpg", "wb") as imgdata:
+				imgdata.write(r.content)
+			print("CoverDL : "+title)
+			return True
 #讀取先前的清單
 try:
-	with open("@FileList.txt" , "r") as clog: #ID紀錄
-		TitleList = [l.strip() for l in clog ]
+	with open("@FileList.txt" , "r") as clog: 
+		TitleList2 = [l.strip() for l in clog ]
 except:
-	TitleList = []
+	TitleList2 = []
 try:
-	with open("@CodeList.txt" , "r") as clog: #ID紀錄
-		CodeList = [l.strip() for l in clog ]
+	with open("@CodeList.txt" , "r") as clog: 
+		CodeList2 = [l.strip() for l in clog ]
 except:
-	CodeList = []
+	CodeList2 = []
+TitleList , CodeList = [],[]
 
 #讀取檔案清單
 mypath = os.getcwd()
@@ -111,25 +113,30 @@ for root, dirs, files in os.walk(mypath):
 	print("\nRoot : "+root+"\n")
 	
 	for i in files:
+		dirpath = mypath
 		code = GetCode(i) #從檔名找番號
 		if code != None :
 			if code not in CodeList:
-				x = CoverDL(code)
+				x = CoverDL(code,True)
 				if x :
 					CodeList += [code]
 				else :
 					continue
+			else:
+				CoverDL(code,False)
 			try:
 				print("File : "+i)
 				print("Move : "+dirpath)
 				os.rename(root+"\\"+i,dirpath+"\\"+i)
 			except:
-				logNprint("*Error : "+i+"\n *Exist in : "+root)
+				logNprint("*Error : "+i+"\n *FilePath : "+root+"\n *Exist in : "+dirpath)
 				pass
 		else:
 			continue
 
 os.chdir(mypath) #匯出清單
+TitleList += TitleList2
+CodeList += CodeList2
 with open("@FileList.txt","w", encoding = 'utf8') as data:
 		for i in sorted(TitleList):
 			data.write(i+"\n")
