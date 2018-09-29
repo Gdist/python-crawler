@@ -24,6 +24,7 @@
 
 將爬到的網址匯入Aria2下載，內含feikebt和nyaa的爬蟲
 
+## 使用方法
 
 * maxjav&javpop
 
@@ -40,10 +41,6 @@
 * maxjav&javpop
 
 導入cookies並實現自動下載，或使用PyLoad整合AllDebrid下載(待研究)
-
-* nyaa_GetMagnet
-
-暫無
 
 * JAVHD-DL
 
