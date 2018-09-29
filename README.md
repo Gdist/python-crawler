@@ -16,6 +16,14 @@
 
 [修改自eqblog](http://www.hostloc.com/thread-433873-1-1.html)
 
+* JAVAutoSorted
+
+近來最滿意(也最急需)之作，能辨識番號→搜尋封面+標題→建立以標題為名的資料夾→將檔案移進新的資料夾
+
+* Aria2
+
+將爬到的網址匯入Aria2下載，內含feikebt和nyaa的爬蟲
+
 ## 使用方法
 * maxjav&javpop
 
