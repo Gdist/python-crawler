@@ -1,5 +1,4 @@
 # coding: utf-8
-## Gdst.me
 #v2.0
 ##增加檔案比對、自動重新命名
 import os , requests , urllib , time ,filecmp ,hashlib
@@ -65,13 +64,13 @@ def CoverDL(code,dlornot):
 	response.encoding = 'UTF-8' 
 	soup = BeautifulSoup(response.text, 'lxml')
 
-	if soup.find("h4") == None:
-		logNprint("*Error : " + code+ " Unknown Error")
-		log(str(soup))
-		return
-	elif soup.find("h4").getText() == "404 Page Not Found!" :
+	if soup.find("title").getText() == "404 Not Found" or soup.find("title").getText() == "404 Page Not Found! - JavBus":
 		text = "*Error : " + code+ " 404 Not Found"
 		logNprint(text)
+		return
+	elif soup.find("h3") == None:
+		logNprint("*Error : " + code+ " Unknown Error")
+		log(str(soup))
 		return
 		
 	article = soup.find("div", {"class": "container"})
@@ -174,10 +173,11 @@ for root, dirs, files in os.walk(mypath):
 os.chdir(mypath) #匯出清單
 TitleList += TitleList2
 CodeList += CodeList2
-with open("@FileList.txt","w", encoding = 'utf8') as data:
+if len(TitleList) != 0 and len(CodeList) !=0:
+	with open("@FileList.txt","w", encoding = 'utf8') as data:
 		for i in sorted(TitleList):
 			data.write(i+"\n")
-with open("@CodeList.txt","w", encoding = 'utf8') as data:
+	with open("@CodeList.txt","w", encoding = 'utf8') as data:
 		for i in sorted(CodeList):
 			data.write(i+"\n")
 
