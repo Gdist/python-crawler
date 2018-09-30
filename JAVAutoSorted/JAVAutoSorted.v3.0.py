@@ -1,5 +1,4 @@
 # coding: utf-8
-## Gdst.me
 #v2.0
 ##增加檔案比對、自動重新命名
 #v3.0
@@ -187,11 +186,12 @@ for key in KeyList:
 	os.chdir(mypath+"\\@Sorted\\"+key) #匯出清單
 	TitleList += TitleList2
 	CodeList += CodeList2
-	with open("@"+key+"_FileList.txt","w", encoding = 'utf8') as data:
-		for i in sorted(TitleList):
-			data.write(i+"\n")
-	with open("@"+key+"_CodeList.txt","w", encoding = 'utf8') as data:
-		for i in sorted(CodeList):
-			data.write(i+"\n")
+	if len(TitleList) != 0 and len(CodeList) !=0:
+		with open("@FileList.txt","w", encoding = 'utf8') as data:
+			for i in sorted(TitleList):
+				data.write(i+"\n")
+		with open("@CodeList.txt","w", encoding = 'utf8') as data:
+			for i in sorted(CodeList):
+				data.write(i+"\n")
 
 input("\n整理完成，請按Enter離開")
