@@ -13,6 +13,15 @@ def logNprint(text):
 def log(text):
 	with open("error.log","a", encoding = 'utf8') as data:
 		data.write(str(text)+"\n")
+def convert_bytes(num):
+    for x in ['bytes', 'KB', 'MB', 'GB', 'TB']:
+        if num < 1024.0:
+            return "%3.1f %s" % (num, x)
+        num /= 1024.0
+def file_size(file_path):
+    if os.path.isfile(file_path):
+        file_info = os.stat(file_path)
+        return convert_bytes(file_info.st_size)
 
 def GetCode(filename):
 	c = key.upper()+"-"
@@ -126,11 +135,19 @@ for root, dirs, files in os.walk(mypath):
 				CoverDL(code,False)
 			try:
 				print("File : "+i)
-				print("Move : "+dirpath)
 				os.rename(root+"\\"+i,dirpath+"\\"+i)
+				print("Move : "+dirpath)
 			except:
+				fsize = file_size(root+"\\"+i).split(" ")
+				if fsize[1] == "GB" and float(fsize[0]) >= 4:
+					i2 = i.replace(".",".HD.")
+					try:
+						os.rename(root+"\\"+i,dirpath+"\\"+i2)
+						print("Move : "+dirpath)
+						continue
+					except:
+						pass
 				logNprint("*Error : "+i+"\n *FilePath : "+root+"\n *Exist in : "+dirpath)
-				pass
 		else:
 			continue
 
@@ -144,4 +161,4 @@ with open("@CodeList.txt","w", encoding = 'utf8') as data:
 		for i in sorted(CodeList):
 			data.write(i+"\n")
 
-input("下載完成，請按Enter離開")
+input("\n整理完成，請按Enter離開")
