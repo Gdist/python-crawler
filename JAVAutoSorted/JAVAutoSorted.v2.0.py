@@ -1,4 +1,5 @@
 # coding: utf-8
+## Gdst.me
 #v2.0
 ##增加檔案比對、自動重新命名
 import os , requests , urllib , time ,filecmp ,hashlib
