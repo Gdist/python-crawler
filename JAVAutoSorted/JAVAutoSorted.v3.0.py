@@ -63,13 +63,13 @@ def CoverDL(code,dlornot):
 	response.encoding = 'UTF-8' 
 	soup = BeautifulSoup(response.text, 'lxml')
 
-	if soup.find("h4") == None and soup.find("title").getText() != "404 Not Found":
-		logNprint("*Error : " + code+ " Unknown Error")
-		log(str(soup))
-		return
-	elif soup.find("h4").getText() == "404 Page Not Found!" or soup.find("title").getText() == "404 Not Found":
+	if soup.find("title").getText() == "404 Not Found" or soup.find("title").getText() == "404 Page Not Found! - JavBus":
 		text = "*Error : " + code+ " 404 Not Found"
 		logNprint(text)
+		return
+	elif soup.find("h3") == None:
+		logNprint("*Error : " + code+ " Unknown Error")
+		log(str(soup))
 		return
 		
 	article = soup.find("div", {"class": "container"})
