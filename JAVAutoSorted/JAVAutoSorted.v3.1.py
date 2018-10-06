@@ -4,7 +4,8 @@
 #v3.0 20180930
 ##增加批次處理，將欲處理的番號存在keylist.txt
 #v3.1 20181006
-##更新運算邏輯、比對檔案改為直接比對檔案大小、以及些許優化
+##更新運算邏輯、重新整理架構、新增素人片番號的比對及封面下載、
+##比對檔案改為直接比對檔案大小、以及些許細部調整
 
 import os , requests , urllib , time ,filecmp ,hashlib
 from bs4 import BeautifulSoup
