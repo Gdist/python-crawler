@@ -203,6 +203,7 @@ with open("keyword.txt" , "r", encoding = 'utf8') as keydata:
 mypath = os.getcwd() #執行目錄
 
 for root, dirs, files in os.walk(mypath):
+
 	os.chdir(root) #更改到當前目錄
 	print("Path : "+root+"\n")
 	
