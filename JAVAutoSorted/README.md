@@ -1,5 +1,7 @@
 # JAVAutoSorted
 
+[](https://i.imgur.com/zQCvrT1.png)
+
 ## 不同版本簡介&使用說明
 * v1.7 20180929
 
