@@ -203,7 +203,10 @@ with open("keyword.txt" , "r", encoding = 'utf8') as keydata:
 mypath = os.getcwd() #執行目錄
 
 for root, dirs, files in os.walk(mypath):
-
+	if mypath+"\\@~Sorted" in root : #略過根目錄下帶有@的資料夾
+		continue
+	if not os.path.isdir(mypath+"\\@~Sorted\\"):
+		os.mkdir(mypath+"\\@~Sorted\\")
 	os.chdir(root) #更改到當前目錄
 	print("Path : "+root+"\n")
 	
@@ -212,6 +215,7 @@ for root, dirs, files in os.walk(mypath):
 			dirpath = mypath
 			code = GetCode(i) #從檔名找番號
 			if code : #如果能夠從檔案名稱找出番號
+				print("Code :",code)
 				if not os.path.isdir(mypath+"\\@~Sorted\\"+key):
 					os.mkdir(mypath+"\\@~Sorted\\"+key)
 				x = DL.Cover1(code) if not key[0].isdigit() else DL.Cover2(code)
