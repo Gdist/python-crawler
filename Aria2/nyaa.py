@@ -4,6 +4,12 @@ from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 import aria2
 
+num = 3 #爬行頁數
+seednum = 20 #最低需求上傳種子數
+sortbyseeders = True #是否依照種子數排序
+begin = "2018/08/15 00" #早於此日期的將不會被下載
+begin_date = datetime.strptime(begin, '%Y/%m/%d %H')
+
 def get_magnet(url):
 	response = requests.get(url)
 	response.encoding = 'UTF-8' 
@@ -14,8 +20,11 @@ def get_magnet(url):
 
 	for i in articles:
 		td = i.find_all("td")
-		viewid = td[1].find("a").get("href").replace("/view/","")
-		title = td[1].find("a").getText()
+		for td1 in td[1].find_all("a"):
+			if "#comments" not in td1.get("href"):
+				viewid = td1.get("href").replace("/view/","")
+				title = td1.getText()
+				break
 		date = (td[4].getText())
 		date2 = datetime.strptime(date, '%Y-%m-%d %H:%M')
 		seeders = int(td[5].getText())
@@ -26,12 +35,15 @@ def get_magnet(url):
 		logNprint("Title   : "+title)
 		logNprint("Seeders : "+str(seeders))
 
-		if viewid in ChcekList:
+		if viewid in CheckList:
 			logNprint("*Error  : "+viewid+" has been added to Aria2")
 			continue
 		elif seeders < seednum :
 			logNprint("*Error  : "+viewid+" has too few seeders (<"+str(seednum)+")")
-			break
+			if sortbyseeders==True:
+				break
+			else:
+				continue
 		elif (begin_date - date2 > timedelta(seconds= 0) ):
 			logNprint("*Error  : "+viewid+" Time is too far")
 			continue
@@ -53,18 +65,19 @@ def logNprint(text):
 def checklist(text):
 	with open("Check_nyaa.log","a", encoding = 'utf8') as data:
 		data.write(str(text)+"\n")
-
-num = 1 #爬行頁數
-seednum = 30 #最低需求上傳種子數
-sortbyseeders = True #是否依照種子數排序
-begin = "2018/08/15 00" #早於此日期的將不會被下載
-begin_date = datetime.strptime(begin, '%Y/%m/%d %H')
-
+#Main
 try:
 	with open("Check_nyaa.log" , "r") as clog: #ID紀錄
-		ChcekList = [l.strip() for l in clog ]
+		CheckList1 = [l.strip() for l in clog ]
 except:
-	ChcekList = []
+	CheckList1 = []
+try:
+	with open("Check_nyaa2.log" , "r") as clog: #ID紀錄
+		CheckList2 = [l.strip() for l in clog ]
+except:
+	CheckList2 = []
+
+CheckList = CheckList1 + CheckList2
 
 with open("Key_nyaa.txt" , "r", encoding = 'utf8') as keydata: #關鍵字紀錄
 	KeyList = [l.strip() for l in keydata ]
